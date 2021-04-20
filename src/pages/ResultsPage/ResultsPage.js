@@ -1,9 +1,17 @@
 import React from "react";
 import { useParams } from "react-router";
 import GitHubApi from "../../api";
-import { Container, Divider, Grid, Image, Pagination } from "semantic-ui-react";
+import {
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Icon,
+  Image,
+  Message,
+} from "semantic-ui-react";
 
-function Item({ login, followers, avatarUrl, bio, apiPageUrl }) {
+function Item({ login, followers, starred, avatarUrl, bio, apiPageUrl }) {
   return (
     <>
       <Divider />
@@ -19,7 +27,8 @@ function Item({ login, followers, avatarUrl, bio, apiPageUrl }) {
             <br />
             {bio}
             <br />
-            Followers: {followers}
+            <Icon disabled name="user" /> {followers}{" "}
+            <Icon disabled name="star" /> {starred}
             <br />
           </Grid.Column>
         </Grid.Row>
@@ -33,47 +42,72 @@ export function ResultsPage() {
   const { username } = useParams();
 
   const [items, setItems] = React.useState([]);
-  const [itemCount, setItemCount] = React.useState(0);
-  const [page, setPage] = React.useState(1);
-  const [totalPages, setTotalPages] = React.useState(1);
+  const [endCursor, setEndCursor] = React.useState(null);
+  const [startCursor, setStartCursor] = React.useState(null);
+  const [hasNextPage, setHasNextPage] = React.useState(false);
+  const [hasPreviousPage, setHasPreviousPage] = React.useState(false);
+  const [totalCount, setTotalCount] = React.useState(0);
+  const [errorMessage, setErrorMessage] = React.useState(null);
+
+  const saveState = (result) => {
+    setEndCursor(result.endCursor);
+    setStartCursor(result.startCursor);
+    setHasNextPage(result.hasNextPage);
+    setHasPreviousPage(result.hasPreviousPage);
+    setTotalCount(result.totalCount);
+    setItems(result.users);
+  };
+
+  const handleError = (error) => {
+    setErrorMessage(error.toString());
+  };
 
   React.useEffect(() => {
-    console.info("effect");
-    GitHubApi.search(username, page).then((result) => {
-      setItemCount(result.totalItems);
-      setItems(result.items);
-      setPage(result.currentPage);
-      setTotalPages(result.totalPages);
-    });
-  }, [username, page]);
+    GitHubApi.fetchNextPage(username).then(saveState).catch(handleError);
+  }, [username]);
 
-  const handlePageChange = (e, { activePage }) => {
-    setPage(activePage);
+  const handleNextPage = () => {
+    GitHubApi.fetchNextPage(username, endCursor)
+      .then(saveState)
+      .catch(handleError);
   };
+
+  const handlePreviousPage = () => {
+    GitHubApi.fetchPreviousPage(username, startCursor)
+      .then(saveState)
+      .catch(handleError);
+  };
+
+  if (errorMessage) {
+    return (
+      <Message negative>
+        <Message.Header>Error fetching data</Message.Header>
+        <p>{errorMessage}</p>
+      </Message>
+    );
+  }
 
   return (
     <Container style={{ padding: "3rem" }}>
       <Container>
-        <b>{itemCount} users</b>
+        <b>{totalCount} users</b>
       </Container>
       <Container>
         {items.map((record) => (
-          <Item
-            key={record.id}
-            login={record.login}
-            followers={record.followers}
-            avatarUrl={record.avatarUrl}
-            bio={record.bio}
-            apiPageUrl={record.apiPageUrl}
-          />
+          <Item key={record.id} {...record} />
         ))}
       </Container>
       <Container textAlign="center">
-        <Pagination
-          defaultActivePage={page}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+        <Button
+          disabled={!hasPreviousPage}
+          primary
+          onClick={handlePreviousPage}
+        >
+          Previous Page
+        </Button>
+        <Button disabled={!hasNextPage} primary onClick={handleNextPage}>
+          Next Page
+        </Button>
       </Container>
     </Container>
   );
