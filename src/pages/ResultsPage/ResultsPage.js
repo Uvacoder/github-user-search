@@ -1,42 +1,8 @@
 import React from "react";
 import { useParams } from "react-router";
 import GitHubApi from "../../api";
-import {
-  Button,
-  Container,
-  Divider,
-  Grid,
-  Icon,
-  Image,
-  Message,
-} from "semantic-ui-react";
-
-function Item({ login, followers, starred, avatarUrl, bio, apiPageUrl }) {
-  return (
-    <>
-      <Divider />
-      <Grid columns={2}>
-        <Grid.Row>
-          <Grid.Column width={2}>
-            <Image src={avatarUrl} style={{ width: "70px", height: "70px" }} />
-          </Grid.Column>
-          <Grid.Column width={14}>
-            <b>
-              <a href={apiPageUrl}>{login}</a>
-            </b>
-            <br />
-            {bio}
-            <br />
-            <Icon disabled name="user" /> {followers}{" "}
-            <Icon disabled name="star" /> {starred}
-            <br />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-      <Divider />
-    </>
-  );
-}
+import { Button, Container, Message } from "semantic-ui-react";
+import { Item } from "./Item";
 
 export function ResultsPage() {
   const { username } = useParams();
