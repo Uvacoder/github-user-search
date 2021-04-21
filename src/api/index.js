@@ -76,8 +76,10 @@ const GitHubApi = {
             return {
               id: node.id,
               login: node.login,
-              followers: node.followers.totalCount,
-              starred: node.starredRepositories.totalCount,
+              followers: node.followers ? node.followers.totalCount : null,
+              starred: node.starredRepositories
+                ? node.starredRepositories.totalCount
+                : null,
               avatarUrl: node.avatarUrl,
               bio: node.bio,
               apiPageUrl: `https://api.github.com/users/${node.login}`,
