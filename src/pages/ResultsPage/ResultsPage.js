@@ -58,20 +58,23 @@ export function ResultsPage() {
         ))}
       </Container>
       <Container textAlign="center">
-        <Button
-          disabled={!pageInfo.hasPreviousPage}
-          primary
+        <button
+          className={
+            "ui primary button " + (!pageInfo.hasPreviousPage ? "disabled" : "")
+          }
           onClick={handlePreviousPage}
         >
           Previous Page
-        </Button>
-        <Button
-          disabled={!pageInfo.hasNextPage}
-          primary
+        </button>
+
+        <button
+          className={
+            "ui primary button " + (!pageInfo.hasNextPage ? "disabled" : "")
+          }
           onClick={handleNextPage}
         >
           Next Page
-        </Button>
+        </button>
       </Container>
     </Container>
   );

@@ -24,7 +24,9 @@ export function InputPage() {
           value={username}
         />
 
-        <Form.Button>Search</Form.Button>
+        <button className="ui primary button" type="submit">
+          Search
+        </button>
       </Form>
     </Container>
   );
