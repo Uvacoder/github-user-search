@@ -1,10 +1,9 @@
-import { Dimmer, Loader } from 'semantic-ui-react';
 import React from 'react';
 
 export function LoadingIndicator() {
   return (
-    <Dimmer active inverted>
-      <Loader inverted>Loading</Loader>
-    </Dimmer>
+    <div className="ui active inverted dimmer">
+      <div className="ui text loader">Loading</div>
+    </div>
   );
 }
