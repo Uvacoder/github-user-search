@@ -34,7 +34,6 @@ export function Item({
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      <Divider />
     </>
   );
 }
