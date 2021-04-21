@@ -41,6 +41,8 @@
     ]
   },
   "devDependencies": {
+    "jest-dom": "^4.0.0",
+    "jest-when": "^3.2.1",
     "prettier": "2.2.1"
   }
 }
