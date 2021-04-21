@@ -1,9 +1,10 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import GitHubApi from '../../api';
-import { Container, Message } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { Item } from './Item';
 import { Pagination } from './Pagination';
+import { ErrorMessage } from './ErrorMessage';
 
 export function ResultsPage() {
   const { username } = useParams();
@@ -40,12 +41,7 @@ export function ResultsPage() {
   };
 
   if (errorMessage) {
-    return (
-      <Message negative>
-        <Message.Header>Error fetching data</Message.Header>
-        <p>{errorMessage}</p>
-      </Message>
-    );
+    return <ErrorMessage message={errorMessage} />;
   }
 
   return (
