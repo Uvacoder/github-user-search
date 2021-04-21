@@ -84,7 +84,7 @@ const GitHubApi = {
             };
           }),
           totalCount: data.search.userCount,
-          ...data.search.pageInfo,
+          pageInfo: data.search.pageInfo,
         };
       });
   },

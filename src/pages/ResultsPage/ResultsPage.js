@@ -8,20 +8,14 @@ export function ResultsPage() {
   const { username } = useParams();
 
   const [items, setItems] = React.useState([]);
-  const [endCursor, setEndCursor] = React.useState(null);
-  const [startCursor, setStartCursor] = React.useState(null);
-  const [hasNextPage, setHasNextPage] = React.useState(false);
-  const [hasPreviousPage, setHasPreviousPage] = React.useState(false);
   const [totalCount, setTotalCount] = React.useState(0);
   const [errorMessage, setErrorMessage] = React.useState(null);
+  const [pageInfo, setPageInfo] = React.useState({});
 
   const saveState = (result) => {
-    setEndCursor(result.endCursor);
-    setStartCursor(result.startCursor);
-    setHasNextPage(result.hasNextPage);
-    setHasPreviousPage(result.hasPreviousPage);
     setTotalCount(result.totalCount);
     setItems(result.users);
+    setPageInfo(result.pageInfo);
   };
 
   const handleError = (error) => {
@@ -33,13 +27,13 @@ export function ResultsPage() {
   }, [username]);
 
   const handleNextPage = () => {
-    GitHubApi.fetchNextPage(username, endCursor)
+    GitHubApi.fetchNextPage(username, pageInfo.endCursor)
       .then(saveState)
       .catch(handleError);
   };
 
   const handlePreviousPage = () => {
-    GitHubApi.fetchPreviousPage(username, startCursor)
+    GitHubApi.fetchPreviousPage(username, pageInfo.startCursor)
       .then(saveState)
       .catch(handleError);
   };
@@ -65,13 +59,17 @@ export function ResultsPage() {
       </Container>
       <Container textAlign="center">
         <Button
-          disabled={!hasPreviousPage}
+          disabled={!pageInfo.hasPreviousPage}
           primary
           onClick={handlePreviousPage}
         >
           Previous Page
         </Button>
-        <Button disabled={!hasNextPage} primary onClick={handleNextPage}>
+        <Button
+          disabled={!pageInfo.hasNextPage}
+          primary
+          onClick={handleNextPage}
+        >
           Next Page
         </Button>
       </Container>
