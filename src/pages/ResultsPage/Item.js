@@ -23,7 +23,7 @@ export function Item({
           </Grid.Column>
           <Grid.Column width={14}>
             <b>
-              <a href={apiPageUrl}>{login}</a>
+              <a href={apiPageUrl} target="_blank" rel="noopener noreferrer">{login}</a>
             </b>
             <br />
             {bio}
