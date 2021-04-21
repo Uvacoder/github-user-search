@@ -1,4 +1,4 @@
-import { GraphQLClient, gql } from "graphql-request";
+import { GraphQLClient, gql } from 'graphql-request';
 
 const GET_USERS = gql`
   query getUsers(
@@ -45,7 +45,7 @@ const GET_USERS = gql`
 
 const PAGE_SIZE = 5;
 
-const client = new GraphQLClient("https://api.github.com/graphql", {
+const client = new GraphQLClient('https://api.github.com/graphql', {
   headers: {
     authorization: `Bearer ${process.env.REACT_APP_GITHUB_PERSONAL_ACCESS_TOKEN}`,
   },

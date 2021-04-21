@@ -1,5 +1,5 @@
-import { Divider, Grid, Icon, Image } from "semantic-ui-react";
-import React from "react";
+import { Divider, Grid, Icon, Image } from 'semantic-ui-react';
+import React from 'react';
 
 export function Item({
   login,
@@ -15,7 +15,7 @@ export function Item({
       <Grid columns={2}>
         <Grid.Row>
           <Grid.Column width={2}>
-            <Image src={avatarUrl} style={{ width: "70px", height: "70px" }} />
+            <Image src={avatarUrl} style={{ width: '70px', height: '70px' }} />
           </Grid.Column>
           <Grid.Column width={14}>
             <b>
@@ -24,7 +24,7 @@ export function Item({
             <br />
             {bio}
             <br />
-            <Icon disabled name="user" /> {followers}{" "}
+            <Icon disabled name="user" /> {followers}{' '}
             <Icon disabled name="star" /> {starred}
             <br />
           </Grid.Column>

@@ -1,8 +1,8 @@
-import React from "react";
-import { useParams } from "react-router";
-import GitHubApi from "../../api";
-import { Button, Container, Message } from "semantic-ui-react";
-import { Item } from "./Item";
+import React from 'react';
+import { useParams } from 'react-router';
+import GitHubApi from '../../api';
+import { Button, Container, Message } from 'semantic-ui-react';
+import { Item } from './Item';
 
 export function ResultsPage() {
   const { username } = useParams();
@@ -48,7 +48,7 @@ export function ResultsPage() {
   }
 
   return (
-    <Container style={{ padding: "3rem" }}>
+    <Container style={{ padding: '3rem' }}>
       <Container>
         <b>{totalCount} users</b>
       </Container>
@@ -60,7 +60,7 @@ export function ResultsPage() {
       <Container textAlign="center">
         <button
           className={
-            "ui primary button " + (!pageInfo.hasPreviousPage ? "disabled" : "")
+            'ui primary button ' + (!pageInfo.hasPreviousPage ? 'disabled' : '')
           }
           onClick={handlePreviousPage}
         >
@@ -69,7 +69,7 @@ export function ResultsPage() {
 
         <button
           className={
-            "ui primary button " + (!pageInfo.hasNextPage ? "disabled" : "")
+            'ui primary button ' + (!pageInfo.hasNextPage ? 'disabled' : '')
           }
           onClick={handleNextPage}
         >

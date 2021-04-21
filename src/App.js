@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ResultsPage } from './pages/ResultsPage/ResultsPage';
 import { InputPage } from './pages/InputPage/InputPage';
-import 'semantic-ui-css/semantic.min.css'
+import 'semantic-ui-css/semantic.min.css';
 
 function App() {
   return (
