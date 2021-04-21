@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import GitHubApi from '../../api';
 import { Container, Message } from 'semantic-ui-react';
 import { Item } from './Item';
+import { Pagination } from './Pagination';
 
 export function ResultsPage() {
   const { username } = useParams();
@@ -58,23 +59,12 @@ export function ResultsPage() {
         ))}
       </Container>
       <Container textAlign="center">
-        <button
-          className={
-            'ui primary button ' + (!pageInfo.hasPreviousPage ? 'disabled' : '')
-          }
-          onClick={handlePreviousPage}
-        >
-          Previous Page
-        </button>
-
-        <button
-          className={
-            'ui primary button ' + (!pageInfo.hasNextPage ? 'disabled' : '')
-          }
-          onClick={handleNextPage}
-        >
-          Next Page
-        </button>
+        <Pagination
+          hasNextPage={pageInfo.hasNextPage}
+          hasPreviousPage={pageInfo.hasPreviousPage}
+          onNextPageClick={handleNextPage}
+          onPreviousPageClick={handlePreviousPage}
+        />
       </Container>
     </Container>
   );
