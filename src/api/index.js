@@ -52,15 +52,15 @@ const client = new GraphQLClient('https://api.github.com/graphql', {
 });
 
 const GitHubApi = {
-  fetchNextPage(query, afterCursor) {
-    return this.fetch(query, afterCursor, null, PAGE_SIZE, null);
+  searchNextUsers(query, afterCursor) {
+    return this.searchUsers(query, afterCursor, null, PAGE_SIZE, null);
   },
 
-  fetchPreviousPage(query, beforeCursor) {
-    return this.fetch(query, null, beforeCursor, null, PAGE_SIZE);
+  searchPreviousUsers(query, beforeCursor) {
+    return this.searchUsers(query, null, beforeCursor, null, PAGE_SIZE);
   },
 
-  fetch(query, afterCursor, beforeCursor, first, last) {
+  searchUsers(query, afterCursor, beforeCursor, first, last) {
     return client
       .request(GET_USERS, {
         query: query,

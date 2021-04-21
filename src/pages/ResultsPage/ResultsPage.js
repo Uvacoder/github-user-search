@@ -25,17 +25,17 @@ export function ResultsPage() {
   };
 
   React.useEffect(() => {
-    GitHubApi.fetchNextPage(username).then(saveState).catch(handleError);
+    GitHubApi.searchNextUsers(username).then(saveState).catch(handleError);
   }, [username]);
 
   const handleNextPageClick = () => {
-    GitHubApi.fetchNextPage(username, pageInfo.endCursor)
+    GitHubApi.searchNextUsers(username, pageInfo.endCursor)
       .then(saveState)
       .catch(handleError);
   };
 
   const handlePreviousPageClick = () => {
-    GitHubApi.fetchPreviousPage(username, pageInfo.startCursor)
+    GitHubApi.searchPreviousUsers(username, pageInfo.startCursor)
       .then(saveState)
       .catch(handleError);
   };
