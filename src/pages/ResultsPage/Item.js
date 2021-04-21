@@ -15,7 +15,11 @@ export function Item({
       <Grid columns={2}>
         <Grid.Row>
           <Grid.Column width={2}>
-            <Image src={avatarUrl} style={{ width: '70px', height: '70px' }} />
+            <Image
+              src={avatarUrl}
+              style={{ width: '70px', height: '70px' }}
+              circular
+            />
           </Grid.Column>
           <Grid.Column width={14}>
             <b>
