@@ -27,13 +27,13 @@ export function ResultsPage() {
     GitHubApi.fetchNextPage(username).then(saveState).catch(handleError);
   }, [username]);
 
-  const handleNextPage = () => {
+  const handleNextPageClick = () => {
     GitHubApi.fetchNextPage(username, pageInfo.endCursor)
       .then(saveState)
       .catch(handleError);
   };
 
-  const handlePreviousPage = () => {
+  const handlePreviousPageClick = () => {
     GitHubApi.fetchPreviousPage(username, pageInfo.startCursor)
       .then(saveState)
       .catch(handleError);
@@ -62,8 +62,8 @@ export function ResultsPage() {
         <Pagination
           hasNextPage={pageInfo.hasNextPage}
           hasPreviousPage={pageInfo.hasPreviousPage}
-          onNextPageClick={handleNextPage}
-          onPreviousPageClick={handlePreviousPage}
+          onNextPageClick={handleNextPageClick}
+          onPreviousPageClick={handlePreviousPageClick}
         />
       </Container>
     </Container>
